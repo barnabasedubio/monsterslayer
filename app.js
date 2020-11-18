@@ -3,7 +3,7 @@ const App = Vue.createApp({
         return {
             playerCurrentHealth: 100,
             monsterCurrentHealth: 100,
-            finalResult: "todo",
+            finalResult: "",
             battleLog: [],
             gameOver: false,
             winner: "",
