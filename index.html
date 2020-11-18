@@ -1,11 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Monster Slayer</title>
-</head>
-<body>
-    
-</body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Monster Slayer</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="style.css" />
+        <script src="https://unpkg.com/vue@next" defer></script>
+        <script src="app.js" defer></script>
+    </head>
+    <body>
+        <div id="app">
+            <div class="game-title">
+                <h1>Monster slayer</h1>
+            </div>
+
+            <div class="player-info-panel">
+                <h5>Your health:</h5>
+                <p>{{ playerCurrentHealth }}</p>
+            </div>
+            <div class="monster-info-panel">
+                <h5>Monster health:</h5>
+                <p>{{ monsterCurrentHealth }}</p>
+            </div>
+
+            <div v-if="!gameOver" class="action-panel">
+                <button @click="attack('You')" class="btn-action">
+                    attack
+                </button>
+                <button @click="specialAttack" class="btn-action">
+                    special attack
+                </button>
+                <button @click="heal" class="btn-action">heal</button>
+                <button @click="surrender" class="btn-action">surrender</button>
+                <button>Medkits: {{ medkitAmount }}</button>
+            </div>
+
+            <div v-else class="result-panel">
+                <h3>{{ winner }} Won</h3>
+            </div>
+
+            <div class="battle-log">
+                <h3>The Story So Far...</h3>
+                <ul>
+                    <li v-for="log in battleLog" :key="log.id">{{ log }}</li>
+                </ul>
+            </div>
+        </div>
+    </body>
 </html>
