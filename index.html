@@ -9,6 +9,11 @@
             rel="stylesheet"
         />
         <link rel="stylesheet" href="style.css" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=VT323&display=swap"
+            rel="stylesheet"
+        />
         <script src="https://unpkg.com/vue@next" defer></script>
         <script src="app.js" defer></script>
     </head>
@@ -19,12 +24,22 @@
             </div>
 
             <div class="player-info-panel">
-                <h5>Your health:</h5>
+                <h3>Your health:</h3>
                 <p>{{ playerCurrentHealth }}</p>
+                <div class="health-container">
+                    <div class="player-current-health"></div>
+                </div>
             </div>
             <div class="monster-info-panel">
-                <h5>Monster health:</h5>
+                <h3>Monster health:</h3>
                 <p>{{ monsterCurrentHealth }}</p>
+                <div class="health-container">
+                    <div class="monster-current-health"></div>
+                </div>
+            </div>
+
+            <div class="medkit-info-panel">
+                <h3>Medkits: {{ medkitAmount }}</h3>
             </div>
 
             <div v-if="!gameOver" class="action-panel">
@@ -32,22 +47,30 @@
                     attack
                 </button>
                 <button @click="specialAttack" class="btn-action">
-                    special attack
+                    special
                 </button>
                 <button @click="heal" class="btn-action">heal</button>
                 <button @click="surrender" class="btn-action">surrender</button>
-                <button>Medkits: {{ medkitAmount }}</button>
             </div>
 
             <div v-else class="result-panel">
                 <h3>{{ winner }} Won</h3>
+                <button @click="resetGame">Retry</button>
             </div>
 
             <div class="battle-log">
                 <h3>The Story So Far...</h3>
-                <ul>
-                    <li v-for="log in battleLog" :key="log.id">{{ log }}</li>
-                </ul>
+                <div class="log-container">
+                    <ul>
+                        <li
+                            class="log-item"
+                            v-for="log in battleLog"
+                            :key="log.id"
+                        >
+                            {{ log }}
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </body>

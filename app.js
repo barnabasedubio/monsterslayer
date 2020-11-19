@@ -31,7 +31,7 @@ const App = Vue.createApp({
                     this.gameOver = true;
                     this.winner = "You";
                 } else {
-                    this.attack("Monster");
+                    setTimeout(() => this.attack("Monster"), 300);
                 }
             } else {
                 this.playerCurrentHealth = Math.max(
@@ -62,7 +62,7 @@ const App = Vue.createApp({
                 this.updateBattleLog(
                     "You tried the special attack...and failed."
                 );
-                this.attack("Monster");
+                setTimeout(() => this.attack("Monster"), 300)
             }
         },
         heal() {
@@ -77,7 +77,7 @@ const App = Vue.createApp({
                         this.updateBattleLog(
                             "You tried healing yourself but dropped the medkit!"
                         );
-                        this.attack("Monster");
+                        setTimeout(() => this.attack("Monster"), 300);
                         break;
                     case 1:
                         this.updateBattleLog(
@@ -96,15 +96,15 @@ const App = Vue.createApp({
                             100,
                             this.playerCurrentHealth + healAmount
                         );
-                        this.attack("Monster");
+                        setTimeout(() => this.attack("Monster"), 300);
                         break;
                 }
                 this.medkitAmount -= 1;
             } else {
                 this.updateBattleLog(
-                    "You tried healing yourself but forgot that you used up all of your medkits!"
+                    "You tried healing yourself but forgot that you had no more medkits left!"
                 );
-                this.attack("Monster");
+                setTimeout(() => this.attack("Monster"), 300);
             }
         },
         surrender() {
@@ -122,12 +122,21 @@ const App = Vue.createApp({
                     this.updateBattleLog(
                         "The Moster does not accept your surrender!"
                     );
-                    this.attack("Monster");
+                    setTimeout(() => this.attack("Monster"), 300);
             }
         },
         updateBattleLog(text) {
             this.battleLog.push(text);
         },
+        resetGame() {
+            this.playerCurrentHealth = 100;
+            this.monsterCurrentHealth = 100;
+            this.finalResult = "";
+            this.battleLog = [];
+            this.gameOver = false;
+            this.winner = "";
+            this.medkitAmount = 3;
+        }
     },
 });
 
