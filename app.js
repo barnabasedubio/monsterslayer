@@ -1,4 +1,5 @@
 const App = Vue.createApp({
+    el: "#app",
     data() {
         return {
             playerCurrentHealth: 100,
@@ -10,7 +11,32 @@ const App = Vue.createApp({
             medkitAmount: 3,
         };
     },
-    computed: {},
+    computed: {
+        playerCurrentHealthStyle() {
+            let backgroundColor = this.determinePlayerHealthColor;
+            return {
+                width: this.playerCurrentHealth + "%",
+                backgroundColor,
+            };
+        },
+        monsterCurrentHealthStyle() {
+            let backgroundColor = this.determineMonsterHealthColor;
+            return {
+                width: this.monsterCurrentHealth + "%",
+                backgroundColor,
+            };
+        },
+        determinePlayerHealthColor() {
+            if (this.playerCurrentHealth > 74) return "green";
+            if (this.playerCurrentHealth > 24) return "orange";
+            return "red";
+        },
+        determineMonsterHealthColor() {
+            if (this.monsterCurrentHealth > 74) return "green";
+            if (this.monsterCurrentHealth > 24) return "orange";
+            return "red";
+        },
+    },
     methods: {
         getRandumNumberInRange(max) {
             return Math.floor(Math.random() * Math.floor(max)) + 1; // + 1 includes number of range
@@ -62,7 +88,7 @@ const App = Vue.createApp({
                 this.updateBattleLog(
                     "You tried the special attack...and failed."
                 );
-                setTimeout(() => this.attack("Monster"), 300)
+                setTimeout(() => this.attack("Monster"), 300);
             }
         },
         heal() {
@@ -116,17 +142,22 @@ const App = Vue.createApp({
                         "The Monster accepts your surrender and lets you live."
                     );
                     this.gameOver = true;
-                    this.winner = "Monster"
+                    this.winner = "Monster";
                     break;
                 default:
                     this.updateBattleLog(
                         "The Moster does not accept your surrender!"
                     );
-                    setTimeout(() => this.attack("Monster"), 300);
+                setTimeout(() => this.attack("Monster"), 300);
             }
         },
         updateBattleLog(text) {
             this.battleLog.push(text);
+            setTimeout(this.scrollToEnd, 0);
+        },
+        scrollToEnd() {
+            const battleLogElement = this.$refs.logContainer;
+            battleLogElement.scrollTop = battleLogElement.scrollHeight;
         },
         resetGame() {
             this.playerCurrentHealth = 100;
@@ -136,7 +167,7 @@ const App = Vue.createApp({
             this.gameOver = false;
             this.winner = "";
             this.medkitAmount = 3;
-        }
+        },
     },
 });
 

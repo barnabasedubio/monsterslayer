@@ -25,16 +25,16 @@
 
             <div class="player-info-panel">
                 <h3>Your health:</h3>
-                <p>{{ playerCurrentHealth }}</p>
                 <div class="health-container">
-                    <div class="player-current-health"></div>
+                    <div class="healthbar" :style="playerCurrentHealthStyle">
+                    </div>
                 </div>
             </div>
             <div class="monster-info-panel">
                 <h3>Monster health:</h3>
-                <p>{{ monsterCurrentHealth }}</p>
                 <div class="health-container">
-                    <div class="monster-current-health"></div>
+                    <div class="healthbar" :style="monsterCurrentHealthStyle">
+                    </div>
                 </div>
             </div>
 
@@ -60,7 +60,7 @@
 
             <div class="battle-log">
                 <h3>The Story So Far...</h3>
-                <div class="log-container">
+                <div ref="logContainer" class="log-container">
                     <ul>
                         <li
                             class="log-item"
