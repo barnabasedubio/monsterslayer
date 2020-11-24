@@ -25,14 +25,14 @@
 
             <div class="player-info-panel">
                 <h3>Your health:</h3>
-                <div class="health-container">
+                <div class="health-container" :title="playerCurrentHealth">
                     <div class="healthbar" :style="playerCurrentHealthStyle">
                     </div>
                 </div>
             </div>
             <div class="monster-info-panel">
                 <h3>Monster health:</h3>
-                <div class="health-container">
+                <div class="health-container" :title="monsterCurrentHealth">
                     <div class="healthbar" :style="monsterCurrentHealthStyle">
                     </div>
                 </div>
